@@ -1,6 +1,3 @@
 
-[build]
-nixpacksPlan = false
-
 [start]
 cmd = "python3 main.py"
