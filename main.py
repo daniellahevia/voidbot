@@ -2,7 +2,7 @@ import os
 import discord
 from discord.ext import commands
 
-# Get token from environment variable,
+# Get token from environment variable
 TOKEN = os.getenv("TOKEN")  # Changed to more specific name
 
 intents = discord.Intents.default()
@@ -11,19 +11,19 @@ intents.messages = True
 
 bot = commands.Bot(command_prefix="!", intents=intents)
 
-# In-memory storage of void channel IDs,
+# In-memory storage of void channel IDs
 void_channel_ids = set()
 
 class VoidSetupView(discord.ui.View):
-    def init(self, channel_id):
-        super().init(timeout=None)
+    def __init__(self, channel_id):
+        super().__init__(timeout=None)  # Corrected __init__ and added timeout=None
         self.channel_id = channel_id
 
     @discord.ui.button(label="Enable", style=discord.ButtonStyle.green)
     async def enable(self, interaction: discord.Interaction, button: discord.ui.Button):
         void_channel_ids.add(self.channel_id)
         await interaction.response.send_message(
-            " This channel is now a void. Messages will auto-delete.", 
+            "This channel is now a void. Messages will auto-delete.", 
             ephemeral=True
         )
 
@@ -31,13 +31,14 @@ class VoidSetupView(discord.ui.View):
     async def disable(self, interaction: discord.Interaction, button: discord.ui.Button):
         void_channel_ids.discard(self.channel_id)
         await interaction.response.send_message(
-            " This channel is no longer a void.", 
+            "This channel is no longer a void.", 
             ephemeral=True
         )
+
 @bot.event
 async def on_ready():
-    print(f' Logged in as {bot.user} (ID: {bot.user.id})')
-    print(f' Invite link: https://discord.com/oauth2/authorize?client_id={bot.user.id}&scope=bot&permissions=274878024704')
+    print(f'Logged in as {bot.user} (ID: {bot.user.id})')
+    print(f'Invite link: https://discord.com/oauth2/authorize?client_id={bot.user.id}&scope=bot&permissions=274878024704')
 
 @bot.command(name="setupvoid")
 @commands.has_permissions(manage_channels=True)  # Added permission check
@@ -60,7 +61,7 @@ async def on_message(message):
         try:
             await message.delete()
         except discord.Forbidden:
-            print(f" No permission to delete in #{message.channel.name} ({message.channel.id})")
+            print(f"No permission to delete in #{message.channel.name} ({message.channel.id})")
         except discord.HTTPException as e:
             print(f"Failed to delete message in #{message.channel.name}: {e}")
 
@@ -69,7 +70,7 @@ async def on_message(message):
 @setup_void.error
 async def setup_void_error(ctx, error):
     if isinstance(error, commands.MissingPermissions):
-        await ctx.send(" You need the 'Manage Channels' permission to use this command.")
+        await ctx.send("You need the 'Manage Channels' permission to use this command.")
 
 if __name__ == "__main__":
     bot.run(TOKEN)
