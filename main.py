@@ -34,7 +34,6 @@ class VoidSetupView(discord.ui.View):
             " This channel is no longer a void.", 
             ephemeral=True
         )
-[4:15 PM]
 @bot.event
 async def on_ready():
     print(f' Logged in as {bot.user} (ID: {bot.user.id})')
