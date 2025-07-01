@@ -2,7 +2,7 @@ import os
 import discord
 from discord.ext import commands
 
-Get token from environment variable,
+# Get token from environment variable,
 TOKEN = os.getenv("TOKEN")  # Changed to more specific name
 
 intents = discord.Intents.default()
