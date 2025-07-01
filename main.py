@@ -11,7 +11,7 @@ intents.messages = True
 
 bot = commands.Bot(command_prefix="!", intents=intents)
 
-In-memory storage of void channel IDs,
+# In-memory storage of void channel IDs,
 void_channel_ids = set()
 
 class VoidSetupView(discord.ui.View):
