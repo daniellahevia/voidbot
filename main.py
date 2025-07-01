@@ -3,7 +3,7 @@ import discord
 from discord.ext import commands
 
 Get token from environment variable,
-TOKEN = os.getenv("DISCORD_TOKEN")  # Changed to more specific name
+TOKEN = os.getenv("TOKEN")  # Changed to more specific name
 
 intents = discord.Intents.default()
 intents.message_content = True
