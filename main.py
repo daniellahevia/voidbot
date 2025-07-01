@@ -71,6 +71,6 @@ async def setup_void_error(ctx, error):
     if isinstance(error, commands.MissingPermissions):
         await ctx.send(" You need the 'Manage Channels' permission to use this command.")
 
-if name == "main":
+if __name__ == "__main__":
     bot.run(TOKEN)
 
